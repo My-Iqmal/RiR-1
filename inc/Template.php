@@ -18,7 +18,7 @@
 
 <!--[if IE]><style type="text/css">.pie {behavior:url(PIE.htc);}</style><![endif]-->
 
-<script type="text/javascript" src="../js/jquery.1.8.3.min.js"></script>
+<script type="text/javascript" src="../js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="../js/bootstrap.js"></script>
 <script type="text/javascript" src="../js/jquery-scrolltofixed.js"></script>
 <script type="text/javascript" src="../js/jquery.easing.1.3.js"></script>

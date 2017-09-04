@@ -13,9 +13,16 @@ if (isset($_POST['edit'])) {
     $amount = $_POST['amount'];
 
     // additional datas
-    $user_id = $_SESSION['user_id'];
+    $user_id = getUser()->id;
 
-    // TODO: check who can update the record
+    // check only owner can update the record
+    $rs = mysqli_query($db, "SELECT * FROM rir_expenses WHERE id=$id LIMIT 1");
+    $row = mysqli_fetch_object($rs);
+    if ($row->user_id != $user_id) {
+        addDangerAlert('<strong>Error!</strong> cannot edit record not belong to you.');
+        header('location: ViewRecord.php');
+    }
+
     // update
     $sql = "
 UPDATE rir_expenses SET item='$item', description='$description', amount=$amount 
@@ -35,12 +42,12 @@ if (!$id) { header ("location: ViewRecord.php"); }
 
 // get the record
 $error = false;
-$messages = [];
 
 $result = mysqli_query($db, "SELECT * FROM rir_expenses WHERE id=".$id." LIMIT 1");
 if (!mysqli_num_rows($result)) {
     $error = true;
-    $messages[] = 'Record with id: '.$id.' not found';
+    addDangerAlert('<strong>Error!</strong> record with id: '.$id.' not found');
+    header('location: ViewRecord.php');
 }
 $record = mysqli_fetch_object($result);
 ?>
@@ -110,8 +117,6 @@ $record = mysqli_fetch_object($result);
 </section>
 <?php
 else:
-foreach ($messages as $message) {
-    echo "<h3>$message</h3>";
-}
+echo renderAlerts();
 ?>
 <?php endif; ?>

@@ -1,4 +1,5 @@
 <?php
+$title = 'Insert transaction';
 include ("../inc/Check_Session.php");
 include ("../inc/DataBaseConnection.php");
 include ("../inc/Template.php");
@@ -24,6 +25,7 @@ VALUES ('$item', '$description', $amount, $user_id, NOW());
     header ("location: ViewRecord.php");
 }
 ?>
+<link rel="stylesheet" type="text/css" href="../css/jquery.datetimepicker.min.css"/ >
 
 <nav class="main-nav-outer" id="test"><!--main-nav-start-->
 	<div>
@@ -61,20 +63,24 @@ VALUES ('$item', '$description', $amount, $user_id, NOW());
         <h2>Insert record</h2>
         <div class="form">
             <form class="contactForm" role="form" name="" action="" method="POST">
-                <div class="form-group">
+                <div class="form-group col-md-8">
                     <input class="form-control input-text" name="item" type="text" placeholder="Transaction item" maxlength="64" id="item">
                     <br />
                     <div class="validation"></div>
                 </div>
-
-                <div class="form-group">
-                    <input class="form-control input-text" name="description" type="text" placeholder="Transaction description" maxlength="255" id="description">
+                <div class="form-group col-md-4">
+                    <input class="form-control input-text" name="amount" type="number" step="0.01" placeholder="Amount" id="amount">
                     <br />
                     <div class="validation"></div>
                 </div>
 
-                <div class="form-group">
-                    <input class="form-control input-text" name="amount" type="number" step="0.01" placeholder="Amount" id="amount">
+                <div class="form-group col-md-8">
+                    <input class="form-control input-text" name="description" type="text" placeholder="Transaction description" maxlength="255" id="description">
+                    <br />
+                    <div class="validation"></div>
+                </div>
+                <div class="form-group col-md-4">
+                    <input class="form-control input-text" name="transaction_date" type="text" placeholder="Transaction Date" id="transaction_date">
                     <br />
                     <div class="validation"></div>
                 </div>
@@ -87,3 +93,14 @@ VALUES ('$item', '$description', $amount, $user_id, NOW());
         </div>
     </div>
 </section>
+
+<script src="../js/jquery.datetimepicker.full.min.js"></script>
+<script>
+$(function(){
+    $('input#transaction_date').datetimepicker({
+        format: 'Y/m/d H:i',
+        step: 15,
+        defaultDate:new Date()
+    });
+});
+</script>

@@ -1,7 +1,9 @@
 <?php
-    include ("../inc/Check_Session.php");
-    include ("../inc/DataBaseConnection.php");
-    include ("../inc/Template.php");
+include ("../inc/Check_Session.php");
+include ("../inc/DataBaseConnection.php");
+include ("../inc/Template.php");
+
+redirectGuest();
 ?>
 
 <!DOCTYPE html>
@@ -29,8 +31,8 @@
         </ul>
         <a class="res-nav_click" href="#"><i class="fa-bars"></i></a>
     </div>
-</nav><!--main-nav-end-->    
-    
+</nav><!--main-nav-end-->
+<?php echo renderAlerts(); ?>
 <header class="header" id="header"><!--header-start-->
     <div class="container">
         <ul class="we-create animated fadeInUp delay-1s">
@@ -49,7 +51,13 @@
         </ul>
     </div>
 </header><!--header-end-->
+<section class="main-section">
+    <div class="container">
+        <div class="row">
 
+        </div>
+    </div>
+</section>
 </body>
 </html>    
 

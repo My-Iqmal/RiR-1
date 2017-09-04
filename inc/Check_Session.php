@@ -2,7 +2,6 @@
 session_start();
 
 //region BEGIN: alerts functions
-
 function addAlert($message, $type='info')
 {
     $alerts = isset($_SESSION['alerts']) ? $_SESSION['alerts'] : [];
@@ -32,7 +31,33 @@ function renderAlerts()
     unset($_SESSION['alerts']);
     return $html;
 }
-//region END: alerts functions
+//endregion END: alerts functions
+
+//region User session
+function getUser()
+{
+    if (isset($_SESSION['user_id']) && isset($_SESSION['user']))
+    {
+        return $_SESSION['user'];
+    }
+    return null;
+}
+
+function logout()
+{
+    addAlert('<strong>Success!</strong> user logged-out successfully.');
+    session_destroy();
+}
+
+function redirectGuest()
+{
+    if (! getUser()) {
+        addWarningAlert('Login required!');
+        header ("location: ../PHP_Files/index.php");
+    }
+}
+//endregion User session
+
 
 if(!isset($_SESSION['user_id'])){
     /*
@@ -45,5 +70,5 @@ if(!isset($_SESSION['user_id'])){
     $_SESSION['User_Email']=$User_Email;
     $_SESSION['level']=1;//user access level
     */
-    header ("location: ../PHP_Files/Log_In.php?msg=You are not logged in");
+    //header ("location: ../PHP_Files/Log_In.php?msg=You are not logged in");
 }

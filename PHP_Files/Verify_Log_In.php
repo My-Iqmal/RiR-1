@@ -1,5 +1,5 @@
 <?php
-session_start();
+include ("../inc/Check_Session.php");
 
 include ("../inc/DataBaseConnection.php");
 include ("../inc/Template.php");
@@ -28,8 +28,12 @@ if(mysqli_num_rows($rs)==1){ //found one user
     if($DBPassword==$USERPASSWORD and $DBUser_Name==$USERNAME){   //compare password from database against password entered by user
         $is_valid = true;
         $_SESSION['user_id'] = $record['id'];
-        $_SESSION['user'] = $record;
+        $_SESSION['user'] = (object) $record;
         //var_dump($_SESSION);
+
+        addSuccessAlert('<strong>Success!</strong> Welcome back <strong>'.$record['User_Fullname'].'</strong>');
+        header ("location: HomePage.php");
+
         $messages .= "IC Number, Username and Password matched!,<br>";
         $messages .= "WELCOME $User_Name!!!<br>";
         $messages .= "You will be redirected to <a href='HomePage.php? User_IC_Number=$User_IC_Number'>home page</a> in 5 seconds<br>";

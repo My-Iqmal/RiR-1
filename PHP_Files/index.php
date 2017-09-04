@@ -1,9 +1,16 @@
 <?php
+
+include ("../inc/Check_Session.php");
 // check if logged-in, redirect to logged-in homepage
+if (getUser()) {
+    header ("location: HomePage.php");
+}
+/*
 session_start();
 if (isset($_SESSION['user_id'])) {
     header ("location: HomePage.php");
 }
+*/
 
 include ("../inc/DataBaseConnection.php");
 include ("../inc/Template.php");

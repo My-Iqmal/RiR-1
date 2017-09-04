@@ -10,10 +10,10 @@
             <li class="small-logo"><a href="#header"><img src="../img/small-logo.png" alt=""></a></li>
             <li><a href="HomePage.php" target="_parent">Home</a></li>
             <li><a href="InsertRecord.php" target="_parent">Insert Record</a></li>
-            <li><a href="DeleteRecord.php" target="_parent">Delete Record </a></li>
+            <!-- li><a href="DeleteRecord.php" target="_parent">Delete Record </a></li -->
             <li><a href="ViewRecord.php" target="_parent">View Record </a></li>
-            <li><a href="EditRecord.php" target="_parent">Edit Record</a></li>
-            <li><a href="PrintRecord.php" target="_parent">Print Record </a></li>
+            <!-- li><a href="EditRecord.php" target="_parent">Edit Record</a></li -->
+            <li><a class="active" href="PrintRecord.php" target="_parent">Print Record </a></li>
             <li><a href="Log_Out_Comfirmation.php" target="_parent">Log Out </a></li>
         </ul>
         <a class="res-nav_click" href="#"><i class="fa-bars"></i></a>

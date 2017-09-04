@@ -4,7 +4,13 @@ include ("../inc/Check_Session.php");
 include ("../inc/DataBaseConnection.php");
 include ("../inc/Template.php");
 
-$sql = "SELECT e.*, u.User_Fullname FROM rir_expenses AS e LEFT JOIN rir_user AS u ON u.id = e.user_id;";
+redirectGuest();
+$user = getUser();
+$sql = "
+SELECT e.*, u.User_Fullname 
+FROM rir_expenses AS e 
+LEFT JOIN rir_user AS u ON u.id = e.user_id
+WHERE user_id = {$user->id};";
 $rs = mysqli_query($db, $sql);
 ?>
 <link rel="stylesheet" type="text/css" href="../DataTables/datatables.min.css"/>
@@ -46,7 +52,7 @@ $rs = mysqli_query($db, $sql);
             <table id="transactions_table" class="table table-striped table-hover" data-page-length="25">
                 <thead>
                     <tr>
-                        <th data-orderable="false"></th>
+                        <!--th data-orderable="false"></th-->
                         <th>#</th>
                         <th>Date/Time</th>
                         <th>User</th>
@@ -64,7 +70,7 @@ $rs = mysqli_query($db, $sql);
                 while ($obj=mysqli_fetch_object($rs)):
                 ?>
                 <tr>
-                    <td><input name="transaction_id" type="checkbox" value="<?php echo $obj->id; ?>" /></td>
+                    <!--td><input name="transaction_id" type="checkbox" value="<?php echo $obj->id; ?>" /></td-->
                     <td><?php echo $i; ?></td>
                     <td><?php echo $obj->transaction_date; ?></td>
                     <td><?php echo $obj->User_Fullname; ?></td>
@@ -72,7 +78,7 @@ $rs = mysqli_query($db, $sql);
                     <td><?php echo $obj->amount; ?></td>
                     <td>
                         <a href="EditRecord.php?id=<?php echo $obj->id; ?>"><i class="fa fa-pencil" title="Edit transaction"></i></a>
-                        <a href="?delete=<?php echo $obj->id; ?>"><i class="fa fa-trash" title="Delete transaction"></i></a>
+                        <a href="?delete=<?php echo $obj->id; ?>"><i class="fa fa-trash text-danger" title="Delete transaction"></i></a>
                     </td>
                 </tr>
                 <?php $i++; endwhile; ?>
@@ -85,7 +91,7 @@ $rs = mysqli_query($db, $sql);
 <script>
 $(function(){
     $('table#transactions_table').DataTable({
-        order: [[2, 'desc']]
+        order: [[1, 'desc']]
     });
 });
 </script>
