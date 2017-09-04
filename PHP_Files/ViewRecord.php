@@ -1,10 +1,16 @@
+
 <?php
 $title = 'View Records';
 include ("../inc/Check_Session.php");
 include ("../inc/DataBaseConnection.php");
 include ("../inc/Template.php");
-
 redirectGuest();
+
+// handle delete
+if (isset($_POST['delete'])) {
+    // delete transaction
+}
+
 $user = getUser();
 $sql = "
 SELECT e.*, u.User_Fullname 
@@ -13,7 +19,8 @@ LEFT JOIN rir_user AS u ON u.id = e.user_id
 WHERE user_id = {$user->id};";
 $rs = mysqli_query($db, $sql);
 ?>
-<link rel="stylesheet" type="text/css" href="../DataTables/datatables.min.css"/>
+<link rel="stylesheet" type="text/css" href="../DataTables/datatables.min.css" />
+<link rel="stylesheet" href="../css/sweetalert2.min.css" />
 <nav class="main-nav-outer" id="test"><!--main-nav-start-->
 	<div>
         <ul class="main-nav">  <!--  This is For Navigation Menu-->
@@ -53,8 +60,8 @@ $rs = mysqli_query($db, $sql);
                 <thead>
                     <tr>
                         <!--th data-orderable="false"></th-->
-                        <th>#</th>
-                        <th>Date/Time</th>
+                        <!--th>#</th-->
+                        <th>Transaction Date</th>
                         <th>User</th>
                         <th>Item</th>
                         <th>Amount</th>
@@ -71,14 +78,14 @@ $rs = mysqli_query($db, $sql);
                 ?>
                 <tr>
                     <!--td><input name="transaction_id" type="checkbox" value="<?php echo $obj->id; ?>" /></td-->
-                    <td><?php echo $i; ?></td>
+                    <!--td><?php echo $i; ?></td-->
                     <td><?php echo $obj->transaction_date; ?></td>
                     <td><?php echo $obj->User_Fullname; ?></td>
                     <td><?php echo $obj->item; ?></td>
                     <td><?php echo $obj->amount; ?></td>
                     <td>
                         <a href="EditRecord.php?id=<?php echo $obj->id; ?>"><i class="fa fa-pencil" title="Edit transaction"></i></a>
-                        <a href="?delete=<?php echo $obj->id; ?>"><i class="fa fa-trash text-danger" title="Delete transaction"></i></a>
+                        <a id="delete" data-id="<?php echo $obj->id; ?>" href=""><i class="fa fa-trash text-danger" title="Delete transaction"></i></a>
                     </td>
                 </tr>
                 <?php $i++; endwhile; ?>
@@ -88,10 +95,33 @@ $rs = mysqli_query($db, $sql);
     </div>
 </section>
 <script type="text/javascript" src="../DataTables/datatables.min.js"></script>
+<script src="../js/sweetalert2.min.js"></script>
 <script>
 $(function(){
     $('table#transactions_table').DataTable({
-        order: [[1, 'desc']]
+        order: [[0, 'desc']]
+    });
+
+    $('a#delete').on('click', function(e){
+        e.preventDefault();
+        var link = $(this).attr('href');
+        var id = $(this).data('id');
+        swal({
+            title: 'Are you sure?',
+            text: "To delete this transaction!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then(function () {
+            $.post(link, {delete: id}, function(){
+                swal('Deleted!',
+                    'Transaction has been deleted.',
+                    'success');
+                window.location = link;
+            });
+        })
     });
 });
 </script>

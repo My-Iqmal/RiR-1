@@ -10,12 +10,13 @@ if (isset($_POST['insert'])) {
     $item = $_POST['item'];
     $description = $_POST['description'];
     $amount = $_POST['amount'];
+    $transaction_date = $_POST['transaction_date'] ? "'".$_POST['transaction_date']."'" : 'NOW()';
 
     // additional datas
     $user_id = $_SESSION['user_id'];
     $sql = "
 INSERT INTO rir_expenses (item, description, amount, user_id, transaction_date) 
-VALUES ('$item', '$description', $amount, $user_id, NOW());
+VALUES ('$item', '$description', $amount, $user_id, $transaction_date);
 ";
     $rs=mysqli_query($db, $sql);
 

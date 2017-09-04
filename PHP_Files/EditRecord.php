@@ -11,6 +11,7 @@ if (isset($_POST['edit'])) {
     $item = $_POST['item'];
     $description = $_POST['description'];
     $amount = $_POST['amount'];
+    $transaction_date = $_POST['transaction_date'] ? $_POST['transaction_date'] : 'NOW()';
 
     // additional datas
     $user_id = getUser()->id;
@@ -25,7 +26,7 @@ if (isset($_POST['edit'])) {
 
     // update
     $sql = "
-UPDATE rir_expenses SET item='$item', description='$description', amount=$amount 
+UPDATE rir_expenses SET item='$item', description='$description', amount=$amount, transaction_date='$transaction_date' 
 WHERE id = $id
 ";
     $rs=mysqli_query($db, $sql);
@@ -51,6 +52,7 @@ if (!mysqli_num_rows($result)) {
 }
 $record = mysqli_fetch_object($result);
 ?>
+<link rel="stylesheet" type="text/css" href="../css/jquery.datetimepicker.min.css"/ >
 
 <nav class="main-nav-outer" id="test"><!--main-nav-start-->
 	<div>
@@ -88,20 +90,24 @@ $record = mysqli_fetch_object($result);
         <h2>Edit record ID:<?php echo $id ?></h2>
         <div class="form">
             <form class="contactForm" role="form" name="" action="" method="POST">
-                <div class="form-group">
+                <div class="form-group col-md-8">
                     <input class="form-control input-text" name="item" type="text" value="<?php echo $record->item ?>" placeholder="Transaction item" maxlength="64" id="item">
                     <br />
                     <div class="validation"></div>
                 </div>
-
-                <div class="form-group">
-                    <input class="form-control input-text" name="description" type="text" value="<?php echo $record->description ?>" placeholder="Transaction description" maxlength="255" id="description">
+                <div class="form-group col-md-4">
+                    <input class="form-control input-text" name="amount" type="number" value="<?php echo $record->amount ?>" step="0.01" placeholder="Amount" id="amount">
                     <br />
                     <div class="validation"></div>
                 </div>
 
-                <div class="form-group">
-                    <input class="form-control input-text" name="amount" type="number" value="<?php echo $record->amount ?>" step="0.01" placeholder="Amount" id="amount">
+                <div class="form-group col-md-8">
+                    <input class="form-control input-text" name="description" type="text" value="<?php echo $record->description ?>" placeholder="Transaction description" maxlength="255" id="description">
+                    <br />
+                    <div class="validation"></div>
+                </div>
+                <div class="form-group col-md-4">
+                    <input class="form-control input-text" name="transaction_date" type="text" value="<?php echo $record->transaction_date ?>" placeholder="Transaction date" id="transaction_date">
                     <br />
                     <div class="validation"></div>
                 </div>
@@ -120,3 +126,14 @@ else:
 echo renderAlerts();
 ?>
 <?php endif; ?>
+
+<script src="../js/jquery.datetimepicker.full.min.js"></script>
+<script>
+    $(function(){
+        $('input#transaction_date').datetimepicker({
+            format: 'Y/m/d H:i',
+            step: 15,
+            defaultDate:new Date()
+        });
+    });
+</script>
