@@ -20,11 +20,23 @@ SELECT
     SUM(e.Price) AS total_transactions,
     COUNT(e.id) AS no_of_transactions 
 FROM rir_expenses AS e
--- INNER JOIN rir_user AS u.id = e.user_id
 WHERE e.user_id = $user->id AND YEAR(e.Transaction_Date) = $selected_year
 GROUP BY MONTH(e.Transaction_Date)
+ORDER BY MONTH(e.Transaction_Date) ASC
 ";
-$rs = mysqli_query($db, $sql);
+$rs_yearly = mysqli_query($db, $sql);
+
+$sql = "
+SELECT  
+    e.Category AS category,
+    SUM(e.Price) AS total_transactions,
+    COUNT(e.id) AS no_of_transactions 
+FROM rir_expenses AS e
+WHERE e.user_id = $user->id AND YEAR(e.Transaction_Date) = $selected_year
+GROUP BY e.Category
+ORDER BY e.Category ASC
+";
+$rs_category = mysqli_query($db, $sql);
 ?>
 
 <nav class="main-nav-outer" id="test"><!--main-nav-start-->
@@ -64,19 +76,19 @@ $rs = mysqli_query($db, $sql);
     <div class="container">
         <h2>Summary record</h2> <br><br>
         <div class="row table-responsive">
+            <h3>
+                Yearly Spending:
+                <select id="year" name="year">
+                    <?php
+                    for ($i=0;$i<=5;$i++) {
+                        $_year = $year - $i;
+                        $_selected = ($year - $i == $selected_year) ? 'selected' : '';
+                        echo "<option $_selected>$_year</option>";
+                    }
+                    ?>
+                </select>
+            </h3>
             <table class="table table-condensed table-hover">
-                <caption>
-                    Yearly Spending:
-                    <select id="year" name="year">
-                        <?php
-                        for ($i=0;$i<=5;$i++) {
-                            $_year = $year - $i;
-                            $_selected = ($year - $i == $selected_year) ? 'selected' : '';
-                            echo "<option $_selected>$_year</option>";
-                        }
-                        ?>
-                    </select>
-                </caption>
                 <thead>
                 <tr>
                     <th>#</th>
@@ -85,14 +97,13 @@ $rs = mysqli_query($db, $sql);
                     <th>Total</th>
                 </tr>
                 </thead>
-                <tfoot>
-                </tfoot>
+                <tfoot></tfoot>
                 <tbody>
-                <?php if (mysqli_num_rows($rs)): ?>
-                <?php $i=1; while ($obj=mysqli_fetch_object($rs)): ?>
+                <?php if (mysqli_num_rows($rs_yearly)): ?>
+                <?php $i=1; while ($obj=mysqli_fetch_object($rs_yearly)): ?>
                 <tr>
                     <td><?php echo $i; ?></td>
-                    <td><?php echo $obj->month; ?></td>
+                    <td><?php echo date('F', mktime(0, 0, 0, $obj->month, 10)); ?></td>
                     <td><?php echo $obj->no_of_transactions; ?></td>
                     <td><?php echo $obj->total_transactions; ?></td>
                 </tr>
@@ -101,6 +112,36 @@ $rs = mysqli_query($db, $sql);
                 <tr>
                     <td colspan="4" class="text-center text-small">No transaction</td>
                 </tr>
+                <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="row table-responsive">
+            <h3>Spending by Category</h3>
+            <table class="table table-condensed table-hover">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Category</th>
+                    <th># of transactions</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tfoot></tfoot>
+                <tbody>
+                <?php if (mysqli_num_rows($rs_category)): ?>
+                    <?php $i=1; while ($obj=mysqli_fetch_object($rs_category)): ?>
+                        <tr>
+                            <td><?php echo $i; ?></td>
+                            <td><?php echo $obj->category; ?></td>
+                            <td><?php echo $obj->no_of_transactions; ?></td>
+                            <td><?php echo $obj->total_transactions; ?></td>
+                        </tr>
+                        <?php $i++; endwhile;?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="4" class="text-center text-small">No transaction</td>
+                    </tr>
                 <?php endif; ?>
                 </tbody>
             </table>
