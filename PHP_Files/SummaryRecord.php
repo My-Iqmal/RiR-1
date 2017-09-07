@@ -2,6 +2,7 @@
     include ("../inc/Check_Session.php");
     include ("../inc/DataBaseConnection.php");
     include ("../inc/Template.php");
+    //
 ?>
 
 <nav class="main-nav-outer" id="test"><!--main-nav-start-->
