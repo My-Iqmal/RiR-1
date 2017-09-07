@@ -1,8 +1,30 @@
 <?php
-    include ("../inc/Check_Session.php");
-    include ("../inc/DataBaseConnection.php");
-    include ("../inc/Template.php");
-    //
+include ("../inc/Check_Session.php");
+include ("../inc/DataBaseConnection.php");
+include ("../inc/Template.php");
+//
+
+// current year
+$year = date('Y');
+
+// selected year from dropdown
+$selected_year = isset($_GET['year']) ? $_GET['year'] : $year;
+
+// current user object
+$user = getUser();
+
+// query the data
+$sql = "
+SELECT  
+    MONTH(e.Transaction_Date) AS month,
+    SUM(e.Price) AS total_transactions,
+    COUNT(e.id) AS no_of_transactions 
+FROM rir_expenses AS e
+-- INNER JOIN rir_user AS u.id = e.user_id
+WHERE e.user_id = $user->id AND YEAR(e.Transaction_Date) = $selected_year
+GROUP BY MONTH(e.Transaction_Date)
+";
+$rs = mysqli_query($db, $sql);
 ?>
 
 <nav class="main-nav-outer" id="test"><!--main-nav-start-->
@@ -37,3 +59,59 @@
         </ul>
     </div>
 </header><!--header-end-->
+
+<section class="main-section" id="service"><!--main-section-start--> <!--  This is for Content  -->
+    <div class="container">
+        <h2>Summary record</h2> <br><br>
+        <div class="row table-responsive">
+            <table class="table table-condensed table-hover">
+                <caption>
+                    Yearly Spending:
+                    <select id="year" name="year">
+                        <?php
+                        for ($i=0;$i<=5;$i++) {
+                            $_year = $year - $i;
+                            $_selected = ($year - $i == $selected_year) ? 'selected' : '';
+                            echo "<option $_selected>$_year</option>";
+                        }
+                        ?>
+                    </select>
+                </caption>
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Month</th>
+                    <th># of transactions</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tfoot>
+                </tfoot>
+                <tbody>
+                <?php if (mysqli_num_rows($rs)): ?>
+                <?php $i=1; while ($obj=mysqli_fetch_object($rs)): ?>
+                <tr>
+                    <td><?php echo $i; ?></td>
+                    <td><?php echo $obj->month; ?></td>
+                    <td><?php echo $obj->no_of_transactions; ?></td>
+                    <td><?php echo $obj->total_transactions; ?></td>
+                </tr>
+                <?php $i++; endwhile;?>
+                <?php else: ?>
+                <tr>
+                    <td colspan="4" class="text-center text-small">No transaction</td>
+                </tr>
+                <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<script>
+$(function(){
+    $('select#year').on('change', function(){
+        window.location = '?year='+$(this).val();
+    });
+});
+</script>
