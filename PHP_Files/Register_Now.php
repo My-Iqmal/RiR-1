@@ -6,7 +6,7 @@
 //include ("inc/header-navbar.php");?>
 
 <div class="container">
-    <section class="main-section contact" id="contact">
+    <section class="main-section contact" id="Register_Now">
         <div class="row">
                     <div class="form">
                         
@@ -47,7 +47,7 @@
 
                             <div class="form-group">
                                 <!-- <h2>Birthdate : </h2> -->
-                                <input class="form-control input-text" name="User_Birthdate" type="text" placeholder="Birthdate" maxlength="10" size="" id="User_Birthdate">
+                                <input class="form-control input-text" name="User_Birthdate" type="Date" placeholder="Birthdate" maxlength="10" size="" id="User_Birthdate">
                                 <br><br>
                                 <div class="validation"></div>
                             </div>

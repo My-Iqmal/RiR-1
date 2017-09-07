@@ -24,12 +24,13 @@
 	<strong>User Log In Verification </strong><br> 
 	<?php 
 		if($rs==true){  
-			echo "$User_IC_Number, $User_FullName, $User_Name, $User_Password, $User_Birthdate, $User_Email is SAVED<br>";  
-			echo "<a href='Log_In.php'> Log In now!</a>";
+			// echo "$User_IC_Number, $User_FullName, $User_Name, $User_Password, $User_Birthdate, $User_Email is SAVED<br>";  
+			header('location: HomePage.php');
 		} 
 
 		else{  
-			echo "Invalid input! The record CANNOT be SAVED<br>"; 
+			// echo "Invalid input! The record CANNOT be SAVED<br>"; 
+			header('location: index.php');
 		} 
 	?>
 </body>

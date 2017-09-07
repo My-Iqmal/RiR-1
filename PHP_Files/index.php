@@ -50,11 +50,11 @@ include ("../inc/Template.php");
 <nav class="main-nav-outer" id="test"><!--main-nav-start-->
     <div>
         <ul class="main-nav">  <!--  This is For Navigation Menu-->
-                <li><a href="HomePageBeforeLogIn.html" target="_parent"> Home </a></li>
-                <li><a href="AboutUsBeforeLogIn.html" target="_parent"> About Us </a></li>
+                <li><a href="#header" target="_parent"> Home </a></li>
+                <li><a href="#About_Us" target="_parent"> About Us </a></li>
                 <li class="small-logo"><a href="#header"><img src="../img/small-logo.png" alt=""></a></li>
-                <li><a href="LogInBeforeLogIn.html" target="_parent"> Log In </a></li>
-                <li><a href="RegisterBeforeLogIn.html" target="_parent"> Register </a></li>
+                <li><a href="#Log_In" target="_parent"> Log In </a></li>
+                <li><a href="#Register_Now" target="_parent"> Register </a></li>
             </ul>
         <a class="res-nav_click" href="#"><i class="fa-bars"></i></a>
     </div>

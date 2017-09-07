@@ -7,7 +7,7 @@ include ("../inc/Template.php");
 ?>
 
 <div class="container">
-    <section class="main-section contact" id="contact">
+    <section class="main-section contact" id="Log_In">
         <div class="row">
 
                     <div class="form">
@@ -40,7 +40,7 @@ include ("../inc/Template.php");
                             
                             <div class="text-center">
                                 <button class="input-btn" type="reset"> Clear</button> 
-                                <button class="input-btn" type="submit"> Login</button>
+                                <button class="input-btn" name="Login" type="submit"> Login</button>
                             </div> 
                                 <?php 
                                     if (isset($_POST['msg'])){
