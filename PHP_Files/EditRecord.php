@@ -3,6 +3,9 @@ include ("../inc/Check_Session.php");
 include ("../inc/DataBaseConnection.php");
 include ("../inc/Template.php");
 
+require '../inc/Carbon.php';
+use Carbon\Carbon;
+
 if (isset($_POST['cancel'])) {
     header('location: ViewRecord.php');
 }
@@ -12,7 +15,9 @@ if (isset($_POST['edit'])) {
     // TODO: security measures
     // get posted datas
     $id = $_POST['id'];
-    $Day = $_POST['Day'];
+    $Transaction_Date = isset($_POST['Purchase_Date']) && ! empty($_POST['Purchase_Date'])
+        ? "'".Carbon::parse($_POST['Purchase_Date'])->format('Y-m-d H:i')."'"
+        : NULL;
     $Category = $_POST['Category'];
     $Item = $_POST['Item'];
     $Quantity = $_POST['Quantity'];
@@ -32,7 +37,7 @@ if (isset($_POST['edit'])) {
 
     // update
     $sql = "
-UPDATE rir_expenses SET Day='$Day', Category='$Category', Item='$Item', Quantity=$Quantity, Price=$Price
+UPDATE rir_expenses SET Transaction_Date=$Transaction_Date, Category='$Category', Item='$Item', Quantity=$Quantity, Price=$Price
 WHERE id = $id
 ";
 
@@ -106,14 +111,20 @@ $record = mysqli_fetch_object($result);
 
                 <div class="form-group col-md-4">
                 <h3> Data Entry Date</h3>
-                    <input class="form-control input-text" name="Transaction_Date" type="text" value="<?php echo $record->Transaction_Date ?>" placeholder="Data Entry Date" id="Transaction_Date" disabled>
+                    <input class="form-control input-text" name="Entry_Date" type="text"
+                           value="<?php echo $record->Entry_Date ?>"
+                           placeholder="" id="Entry_Date" disabled>
                     <br />
                     <div class="validation"></div>
                 </div>
 
                 <div class="form-group col-md-8">
                 <h3> Purchase Date</h3>
-                    <input class="form-control input-text" name="Day" type="text" value="<?php echo $record->Day ?>" placeholder="Purchase Date" maxlength="64" id="Day">
+                    <input class="form-control input-text" name="Purchase_Date" type="text"
+                           value="<?php echo $record->Transaction_Date
+                               ? Carbon::parse($record->Transaction_Date)->format('d F Y g:i A')
+                               : '' ?>"
+                           placeholder="Purchase Date" maxlength="64" id="Purchase_Date">
                     <br />
                     <div class="validation"></div>
                 </div>
@@ -212,10 +223,10 @@ $(function(){
 
 <script>
 $(function(){
-    $('input#Day').datetimepicker({
-        format: 'l, Y/m/d',
-        // step: 15,
-        defaultDate:new Date()
+    $('input#Purchase_Date').datetimepicker({
+        format: 'd F Y g:i A',
+        step: 15
+        //defaultDate:new Date()
     });
 });
 </script>

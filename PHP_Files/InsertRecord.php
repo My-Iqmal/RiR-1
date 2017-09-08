@@ -4,6 +4,8 @@ include ("../inc/Check_Session.php");
 include ("../inc/DataBaseConnection.php");
 include ("../inc/Template.php");
 
+require '../inc/Carbon.php';
+use Carbon\Carbon;
 
 // handle form submit
 if (isset($_POST['insert'])) {
@@ -14,14 +16,16 @@ if (isset($_POST['insert'])) {
     $Item = $_POST['Item'];
     $Quantity = $_POST['Quantity'];
     $Price = $_POST['Price'];
-    $Transaction_Date = $_POST['Transaction_Date'];
+    $Transaction_Date = isset($_POST['Purchase_Date']) && ! empty($_POST['Purchase_Date'])
+        ? "'".Carbon::parse($_POST['Purchase_Date'])->format('Y-m-d H:i')."'"
+        : 'NOW()';
 
     // additional datas
     $user_id = $_SESSION['user_id'];
 
     $sql = "
-INSERT INTO rir_expenses (Day, Category, Item, Quantity, Price, user_id, Transaction_Date) 
-VALUES ('$Day', '$Category', '$Item', $Quantity, $Price, $user_id, NOW());
+INSERT INTO rir_expenses (Day, Category, Item, Quantity, Price, user_id, Transaction_Date, Entry_Date) 
+VALUES ('$Day', '$Category', '$Item', $Quantity, $Price, $user_id, $Transaction_Date, NOW());
 ";
 
     $rs=mysqli_query($db, $sql);
@@ -80,8 +84,13 @@ VALUES ('$Day', '$Category', '$Item', $Quantity, $Price, $user_id, NOW());
                     <div class="validation"></div>
                 </div> -->
 
-                <div class="form-group col-md-12">
-                    <input class="form-control input-text" name="Day" type="text"  placeholder="Purchase Date" id="Day">
+                <div class="form-group col-md-8">
+                    <input class="form-control input-text" name="Purchase_Date" type="text"  placeholder="Purchase Date" id="Purchase_Date">
+                    <br />
+                    <div class="validation"></div>
+                </div>
+                <div class="form-group col-md-4">
+                    <input class="form-control input-text" name="Day" type="text" id="Day" readonly>
                     <br />
                     <div class="validation"></div>
                 </div>
@@ -149,6 +158,7 @@ VALUES ('$Day', '$Category', '$Item', $Quantity, $Price, $user_id, NOW());
 </section>
 
 <script src="../js/jquery.datetimepicker.full.min.js"></script>
+<script src="../js/moment.min.js"></script>
 
 <script>
 $(function(){
@@ -162,10 +172,16 @@ $(function(){
 
 <script>
 $(function(){
-    $('input#Day').datetimepicker({
-        format: 'l, Y/m/d',
-        // step: 15,
-        defaultDate:new Date()
+    $('input#Purchase_Date').datetimepicker({
+        format: 'd F Y g:i A',
+        step: 15
     });
+    $('input#Purchase_Date').on('change', function(){
+        var p_date = moment($(this).val());
+        $('input#Day').val(p_date.format('dddd'));
+    });
+    $('input#Purchase_Date')
+        .val('<?php echo date('d F Y g:i A'); ?>')
+        .trigger('change');
 });
 </script>

@@ -97,23 +97,37 @@ $rs_category = mysqli_query($db, $sql);
                     <th>Total</th>
                 </tr>
                 </thead>
-                <tfoot></tfoot>
                 <tbody>
                 <?php if (mysqli_num_rows($rs_yearly)): ?>
-                <?php $i=1; while ($obj=mysqli_fetch_object($rs_yearly)): ?>
+                <?php
+                    $i=1; $total=0; $count=0;
+                    while ($obj=mysqli_fetch_object($rs_yearly)):
+                ?>
                 <tr>
                     <td><?php echo $i; ?></td>
                     <td><?php echo date('F', mktime(0, 0, 0, $obj->month, 10)); ?></td>
                     <td><?php echo $obj->no_of_transactions; ?></td>
                     <td><?php echo $obj->total_transactions; ?></td>
                 </tr>
-                <?php $i++; endwhile;?>
+                <?php
+                    $count += $obj->no_of_transactions;
+                    $total += $obj->total_transactions;
+                    $i++;
+                    endwhile;
+                ?>
                 <?php else: ?>
                 <tr>
                     <td colspan="4" class="text-center text-small">No transaction</td>
                 </tr>
                 <?php endif; ?>
                 </tbody>
+                <tfoot>
+                <tr>
+                    <th colspan="2" class="text-center">GRAND TOTAL</th>
+                    <th><?php echo $count; ?></th>
+                    <th><?php echo $total; ?></th>
+                </tr>
+                </tfoot>
             </table>
         </div>
         <div class="row table-responsive">

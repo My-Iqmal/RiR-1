@@ -4,6 +4,9 @@ include ("../inc/Check_Session.php");
 include ("../inc/DataBaseConnection.php");
 include ("../inc/Template.php");
 
+require '../inc/Carbon.php';
+use Carbon\Carbon;
+
 redirectGuest();
 $user = getUser();
 $sql = "
@@ -79,8 +82,8 @@ $rs = mysqli_query($db, $sql);
                     <!--td><input name="transaction_id" type="checkbox" value="<?php echo $obj->id; ?>" /></td-->
                     <td><?php echo $i; ?></td>
                     <!-- <td><?php echo $obj->User_Name; ?></td> -->
-                    <td><?php echo $obj->Transaction_Date; ?></td>
-                    <td><?php echo $obj->Day; ?></td>
+                    <td><?php echo $obj->Entry_Date ? Carbon::parse($obj->Entry_Date)->format('d F Y g:i A') : ''; ?></td>
+                    <td><?php echo Carbon::parse($obj->Transaction_Date)->format('d F Y g:i A'); ?></td>
                     <td><?php echo $obj->Category; ?></td>
                     <td><?php echo $obj->Item; ?></td>
                     <td><?php echo $obj->Quantity; ?></td>
