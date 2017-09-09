@@ -80,7 +80,7 @@ $rs = mysqli_query($db, $sql);
                 ?>
                 <tr>
                     <!--td><input name="transaction_id" type="checkbox" value="<?php echo $obj->id; ?>" /></td-->
-                    <td><?php echo $i; ?></td>
+                    <td><?php echo $obj->id; ?></td>
                     <!-- <td><?php echo $obj->User_Name; ?></td> -->
                     <td><?php echo $obj->Entry_Date ? Carbon::parse($obj->Entry_Date)->format('d F Y g:i A') : ''; ?></td>
                     <td><?php echo Carbon::parse($obj->Transaction_Date)->format('d F Y g:i A'); ?></td>
