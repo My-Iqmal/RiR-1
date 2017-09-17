@@ -72,7 +72,7 @@ VALUES ('$Day', '$Category', '$Item', $Quantity, $Price, $user_id, $Transaction_
 </header><!--header-end-->
 
 
-<section class="main-section" id="service"><!--main-section-start--> <!--  This is for Content  -->
+<section class="main-section" id="InsertRecord"><!--main-section-start--> <!--  This is for Content  -->
     <div class="container">
         <h2>Insert record</h2> <br><br>
         <div class="form">
@@ -85,11 +85,14 @@ VALUES ('$Day', '$Category', '$Item', $Quantity, $Price, $user_id, $Transaction_
                 </div> -->
 
                 <div class="form-group col-md-8">
+                    <h3> Purchase Date</h3>
                     <input class="form-control input-text" name="Purchase_Date" type="text"  placeholder="Purchase Date" id="Purchase_Date">
                     <br />
                     <div class="validation"></div>
                 </div>
+
                 <div class="form-group col-md-4">
+                    <h3> Day </h3>
                     <input class="form-control input-text" name="Day" type="text" id="Day" readonly>
                     <br />
                     <div class="validation"></div>
@@ -109,35 +112,41 @@ VALUES ('$Day', '$Category', '$Item', $Quantity, $Price, $user_id, $Transaction_
                 </div> -->
 
                 <div class="form-group col-md-4">
+                <h3> Category</h3>
                 <select required class="form-control input-text form-group col-md-8" name="Category" id="Category"> 
                     <option value=""> Category </option>
-                    <option value="Alat Mandian"> Alat Mandian </option>
-                    <option value="Alat Tulis"> Alat Tulis </option>
-                    <option value="Buku Rujukan"> Buku Rujukan </option>
-                    <option value="Makan dan Minum"> Makan dan Minum </option> 
-                    <option value="Pakaian"> Pakaian </option>
+                    <option value="Toiletries"> Toiletries </option>
+                    <option value="Stationary"> Stationary </option>
+                    <option value="Study Materials"> Study Materials </option>
+                    <option value="Food"> Food </option> 
+                    <option value="Drinks"> Drinks </option> 
+                    <option value="Appearance"> Appearance </option>
                     <option value="Petrol"> Petrol </option>
-                    <option value="Sedekah"> Sedekah </option>
-                    <option value="Simkad dan Telefon"> Simkad dan Telefon </option>
+                    <option value="Charity"> Charity </option>
+                    <option value="Telecomunication"> Telecomunication </option>
                     <option value="Transport"> Transport </option>
-                    <option value="Yuran"> Yuran </option>
+                    <option value="Fees"> Fees </option>
+                    <option value="Others"> Others </option>
                 </select><br>
                 </div>
 
                 <div class="form-group col-md-8">
+                <h3> Item </h3>
                     <input class="form-control input-text" name="Item" type="text" placeholder="Item" maxlength="255" id="Item">
                     <br />
                     <div class="validation"></div>
                 </div>
 
                 <div class="form-group col-md-4">
+                    <h3> Quantity </h3>
                     <input class="form-control input-text" name="Quantity" type="number" step="0" placeholder="Quantity" id="Quantity">
                     <br />
                     <div class="validation"></div>
                 </div>
 
                 <div class="form-group col-md-2">
-                    <input class="form-control input-text" name="Price" type="number" step="0.01" placeholder="Price" id="Price">
+                    <h3> Price </h3>
+                    <input class="form-control input-text" name="Price" type="number" placeholder="Total Price(RM)" id="Price">
                     <br />
                     <div class="validation"></div>
                 </div>
@@ -181,7 +190,7 @@ $(function(){
         $('input#Day').val(p_date.format('dddd'));
     });
     $('input#Purchase_Date')
-        .val('<?php echo date('d F Y g:i A'); ?>')
+        // .val('<?php echo date('d F Y g:i A'); ?>')
         .trigger('change');
 });
 </script>

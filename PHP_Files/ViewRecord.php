@@ -1,4 +1,4 @@
-    <?php
+<?php
 $title = 'View Records';
 include ("../inc/Check_Session.php");
 include ("../inc/DataBaseConnection.php");

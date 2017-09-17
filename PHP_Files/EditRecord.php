@@ -153,18 +153,19 @@ $record = mysqli_fetch_object($result);
                 <div class="form-group col-md-4">
                 <h3> Category</h3>
                 <select required class="form-control input-text form-group col-md-8" name="Category"> 
-                    <option value="<?php echo $record->Category ?>"> <?php echo $record->Category ?> </option>
                     <option value=""> Category </option>
-                    <option value="Alat Mandian"> Alat Mandian </option>
-                    <option value="Alat Tulis"> Alat Tulis </option>
-                    <option value="Buku Rujukan"> Buku Rujukan </option>
-                    <option value="Makan dan Minum"> Makan dan Minum </option> 
-                    <option value="Pakaian"> Pakaian </option>
+                    <option value="Toiletries"> Toiletries </option>
+                    <option value="Stationary"> Stationary </option>
+                    <option value="Study Materials"> Study Materials </option>
+                    <option value="Food"> Food </option> 
+                    <option value="Drinks"> Drinks </option> 
+                    <option value="Appearance"> Appearance </option>
                     <option value="Petrol"> Petrol </option>
-                    <option value="Sedekah"> Sedekah </option>
-                    <option value="Simkad dan Telefon"> Simkad dan Telefon </option>
+                    <option value="Charity"> Charity </option>
+                    <option value="Telecomunication"> Telecomunication </option>
                     <option value="Transport"> Transport </option>
-                    <option value="Yuran"> Yuran </option>
+                    <option value="Fees"> Fees </option>
+                    <option value="Others"> Others </option>
                 </select><br>
                 </div>
 

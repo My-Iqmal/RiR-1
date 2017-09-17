@@ -20,19 +20,19 @@ include ("../inc/Template.php");
 
                         <form class="contactForm" role="form" name="" action="Verify_Log_In.php" method="POST">
                         
-                            <div class="form-group">
+                            <div class="form-group col-md-4">
                                 <input class="form-control input-text" name="User_IC_Number" type="password" placeholder="User IC Number" maxlength="14" id="User_IC_Number">
                                 <br>
                                 <div class="validation"></div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group col-md-4">
                                 <input class="form-control input-text" name="User_Name" type="text" placeholder="User Name" maxlength="20" id="User_Name">
                                 <br>
                                 <div class="validation"></div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group col-md-4">
                                 <input class="form-control input-text" name="User_Password" type="password" placeholder="Password" id="User_Password">
                             <br>
                                 <div class="validation"></div>

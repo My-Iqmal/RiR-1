@@ -10,7 +10,7 @@
         <h2>About Us</h2><br>
         <h3>I am a system that</h3> <h2><strong> record </strong></h2> <h3> every flow of your money in and out.</h3><br>
         <h2> <strong>Locate</strong> </h2> <h3> where you spend your money and when it was spend.</h3> 
-        <br><h3>And most importantly, I can </h3> <h2><strong>calculate and summarise</strong></h2> <h3>your spendings!</h3>
+        <br><h3>And most importantly, I can </h3> <h2><strong>calculate and summarise</strong></h2> <h3>your expenses!</h3>
       <!-- <div class="portfolioFilter">  
         <ul class="Portfolio-nav wow fadeIn delay-02s">
             <li><a href="#" data-filter="*" class="current" >All</a></li>
@@ -26,35 +26,38 @@
     <div class="container">
     <div class="portfolioContainer wow fadeInUp delay-04s">
                 <br><br> <br><br>
-                <div class=" Portfolio-box printdesign">
-                    <a href="#"><img src="../img/Portfolio-pic1.jpg" alt=""></a>   
-                    <h3>Foto Album</h3>
-                    <p>Print Design</p>
+
+                <div class=" Portfolio-box webdesign">
+                   <img src="../img/Home_Page_Iqmal.JPG" alt="">  
+                    <h3>Home Page</h3>
+                    <p>Record it Right!</p>
                 </div>
-                <div class="Portfolio-box webdesign">
-                    <a href="#"><img src="../img/Portfolio-pic2.jpg" alt=""></a>   
-                    <h3>Luca Theme</h3>
-                    <p>Web Design</p>
+                <div class=" Portfolio-box webdesign">
+                    <img src="../img/InsertRecord_Iqmal.JPG" alt="">  
+                    <h3>Insert Record</h3>
+                    <p>You can add record as much as you want!</p>
                 </div>
-                <div class=" Portfolio-box branding">
-                    <a href="#"><img src="../img/Portfolio-pic3.jpg" alt=""></a>   
-                    <h3>Uni Sans</h3>
-                    <p>Branding</p>
+                <div class=" Portfolio-box webdesign">
+                    <img src="../img/View_Record_Iqmal.JPG" alt="">
+                    <h3>View Record</h3>
+                    <p>View your record you added up until now!</p>
                 </div>
-                <div class=" Portfolio-box photography" >
-                    <a href="#"><img src="../img/Portfolio-pic4.jpg" alt=""></a>   
-                    <h3>Vinyl Record</h3>
-                    <p>Photography</p>
+
+                <div class=" Portfolio-box webdesign">
+                    <img src="../img/Edit_Record_Iqmal.JPG" alt="">
+                    <h3>Edit Record</h3>
+                    <p>Something wrong with your record? Edit it!</p>
                 </div>
-                <div class=" Portfolio-box branding">
-                    <a href="#"><img src="../img/Portfolio-pic5.jpg" alt=""></a>   
-                    <h3>Hipster</h3>
-                    <p>Branding</p>
+                <div class=" Portfolio-box webdesign" >
+                   <img src="../img/Delete_Record_Iqmal.JPG" alt=""> 
+                    <h3>Delete Record</h3>
+                    <p>Unwanted record? Remove it from your record!</p>
                 </div>
-                <div class=" Portfolio-box photography">
-                    <a href="#"><img src="../img/Portfolio-pic6.jpg" alt=""></a>   
-                    <h3>Windmills</h3>
-                    <p>Photography</p>
+                <div class=" Portfolio-box webdesign">
+                    <img src="../img/SummaryRecord_Iqmal.JPG" alt=""> 
+                    <br><br><br>
+                    <h3>Summary Record</h3>
+                    <p>You can view the summary of your record!</p>
                 </div>
     </div>
     </div>
